@@ -6,18 +6,18 @@ import { ChakraProviderWrapper } from '@/providers/chakra';
 // import LocaleProvider from '@/providers/locale';
 // import { NextAuthProvider } from '@/providers/next-auth';
 import { QueryProvider } from '@/providers/react-query';
+import Loading from './loading';
+import { Props } from '@/types/common';
 
 export default function AppLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: Props) {
   return (
     <QueryProvider>
       <ChakraProviderWrapper>
-        <Suspense>
+        {/* <Suspense fallback={<Loading/>}> */}
           {children}
-        </Suspense>
+        {/* </Suspense> */}
       </ChakraProviderWrapper>
     </QueryProvider>
   );
