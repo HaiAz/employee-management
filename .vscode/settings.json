@@ -1,0 +1,30 @@
+{
+  "files.insertFinalNewline": true,
+  "editor.formatOnSave": false,
+  // Use Eslint formatter to format code
+  "eslint.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  "search.exclude": {
+    // Avoid polluting search results with lockfile content
+    "package-lock.json": true
+  },
+  "explorer.fileNesting.patterns": {
+    "package.json": "npm"
+  },
+  "npm.packageManager": "npm",
+  "cSpell.words": [
+    "Chakra",
+    "chervon",
+    "formik",
+    "immer",
+    "NEXTAUTH",
+    "serviceworker",
+    "tanstack",
+    "vercel",
+    "zustand"
+  ]
+}
