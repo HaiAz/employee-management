@@ -6,4 +6,9 @@ const createEmployee = async (req, res) => {
   return res.status(201).json(response)
 }
 
-export { createEmployee }
+const getEmployees = async (req, res) => {
+  const response = await employeeService.getEmployees()
+  return res.status(200).json(response)
+}
+
+export { createEmployee, getEmployees }

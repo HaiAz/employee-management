@@ -1,7 +1,8 @@
 import z from "zod";
 
-const userSchema = z.object({
-  
+const tokenSchema = z.object({
+  success: z.boolean(),
+  token: z.string(),
 })
 
 const userCreateAccessCodeFormSchema = z.object({
@@ -14,10 +15,13 @@ const userValidateAccessCodeFormSchema = userCreateAccessCodeFormSchema.extend({
 
 type UserCreateAccessCodeForm = z.infer<typeof userCreateAccessCodeFormSchema>;
 type UserValidateAccessCodeForm = z.infer<typeof userValidateAccessCodeFormSchema>;
+type Token = z.infer<typeof tokenSchema>;
 
 export {
   userCreateAccessCodeFormSchema,
   userValidateAccessCodeFormSchema,
+  tokenSchema,
   type UserCreateAccessCodeForm,
   type UserValidateAccessCodeForm,
+  type Token,
 }

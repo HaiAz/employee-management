@@ -13,9 +13,9 @@ const createNewAccessCode = async (req, res) => {
 
 const validateAccessCode = async (req, res) => {
   try {
-    await authService.validateAccessCode(req.body)
+    const token = await authService.validateAccessCode(req.body)
 
-    return res.status(200).json({ success: true })
+    return res.status(200).json({ success: true, token: token })
   } catch (err) {
     return res.status(400).json({ error: err.message });
   }

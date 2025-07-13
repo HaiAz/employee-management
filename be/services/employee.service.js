@@ -1,14 +1,11 @@
 import { db } from "../config/db.js"
-import { doc, setDoc } from "firebase/firestore"
+import { doc, setDoc, getDocs, collection } from "firebase/firestore"
 
 const createEmployee = async (data) => {
   try {
     await setDoc(doc(db, "employees", data.email), {
-      name: "Employee 1",
-      email: "123@gmail.com",
-      address: "USA",
-      phone: "123456789",
-      role: "admin",
+      ...data,
+      isVerified: false,
     })
 
     return data
@@ -17,4 +14,18 @@ const createEmployee = async (data) => {
   }
 }
 
-export { createEmployee }
+const getEmployees = async (data) => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "employees"))
+    const retData = []
+    querySnapshot.forEach((doc) => {
+      retData.push(doc.data())
+    })
+
+    return retData;
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+export { createEmployee, getEmployees }

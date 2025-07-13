@@ -1,7 +1,7 @@
 'use client';
 
-import { Box, Button, Flex, Input, NumberInput, Text, Field } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import { Button, Flex, Field } from '@chakra-ui/react';
+import React from 'react';
 import { useFormik } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { userCreateAccessCodeFormSchema } from '@/schemas/user';
@@ -9,11 +9,12 @@ import { useCreateAccessCodeMutation } from '@/hooks/api/useUserMutation';
 import { NumericFormatInput } from '@/components/NumericFormatInput';
 import { NumberFormatValues } from 'react-number-format';
 import { useUserStore } from '@/stores/user-store';
+import { MdArrowBack } from "react-icons/md";
 
 export default function CreateCodeByPhoneForm() {
   const mutation = useCreateAccessCodeMutation();
 
-  const { setLoginStep } = useUserStore();
+  const { setLoginStep, setPhoneNumber } = useUserStore();
 
   const formik = useFormik({
     initialValues: {
@@ -24,6 +25,7 @@ export default function CreateCodeByPhoneForm() {
       const response = await mutation.mutateAsync(values);
 
       if (response) {
+        setPhoneNumber(values.phone)
         setLoginStep('Validate-Code-By-Phone');
       }
     },
@@ -31,28 +33,21 @@ export default function CreateCodeByPhoneForm() {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Flex
-        mx="auto"
-        bg="white"
-        direction="column"
-        gap="5"
-        w={500}
-        p={50}
-        borderWidth="1px"
-        borderColor="secondaryGray.500"
-        rounded="md"
-      >
-        <NumericFormatInput
-          value={formik.values.phone}
-          onValueChange={(data: NumberFormatValues) => formik.setFieldValue('phone', data.floatValue)}
-          onBlur={formik.handleBlur}
-          name="phone"
-          placeholder="0123456789"
-        />
+      <Flex flexDirection="column" gap={5}>
+        <Button variant="outline" onClick={() => setLoginStep('Login-Screen')} w="fit-content"><MdArrowBack /></Button>
+        <Field.Root>
+          <Field.Label>Phone Number</Field.Label>
+          <NumericFormatInput
+            value={formik.values.phone}
+            onValueChange={(data: NumberFormatValues) => formik.setFieldValue('phone', data.floatValue)}
+            onBlur={formik.handleBlur}
+            name="phone"
+            placeholder="0123456789"
+          />
+        </Field.Root>
 
-        <Button type="submit" textTransform="uppercase">
-          {/* {t('nav.sign-in')} */}
-          Sign In
+        <Button variant="outline" type="submit" textTransform="uppercase">
+          Next
         </Button>
       </Flex>
     </form>

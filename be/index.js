@@ -14,5 +14,5 @@ app.listen(3001, () => {
   console.log("Server running on port 3000")
 })
 
-app.use("/api/v1/employee", employeeRoute)
+app.use("/api/v1/employees", employeeRoute)
 app.use("/api/v1/auth", authRoute)

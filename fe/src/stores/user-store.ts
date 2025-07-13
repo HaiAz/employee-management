@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-const USER_LOGIN_STEP = [ 'Create-New-Access-Code-By-Phone', 'Create-New-Access-Code-By-Email', 'Validate-Code-By-Phone', 'Validate-Code-By-Mail' ] as const
+const USER_LOGIN_STEP = [ 'Login-Screen', 'Create-New-Access-Code-By-Phone', 'Create-New-Access-Code-By-Email', 'Validate-Code-By-Phone', 'Validate-Code-By-Mail' ] as const
 
 type UserLoginStep = (typeof USER_LOGIN_STEP)[number];
 
@@ -19,7 +19,7 @@ type UserActions = {
 
 const initialState: UserState = {
   phone: 0,
-  loginStep: 'Create-New-Access-Code-By-Phone',
+  loginStep: 'Login-Screen',
 }
 
 const useUserStore = create(immer<UserState & UserActions>((set, get) => ({
@@ -39,6 +39,7 @@ const useUserStore = create(immer<UserState & UserActions>((set, get) => ({
 })));
 
 export {
+  USER_LOGIN_STEP,
   useUserStore,
   type UserLoginStep,
 };
