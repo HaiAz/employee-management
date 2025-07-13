@@ -23,8 +23,8 @@ const createNewAccessCode = async (data) => {
     const now = new Date();
     const expireDate = new Date(now.getTime() + 5 * 60 * 1000);
 
-    await setDoc(doc(db, "verification", String(data.phoneNumber)), {
-      phone: data.phoneNumber,
+    await setDoc(doc(db, "verification", String(data.phone)), {
+      phone: data.phone,
       otp: otp,
       expireDate: expireDate,
       createdAt: now,
@@ -36,7 +36,7 @@ const createNewAccessCode = async (data) => {
 }
 
 const validateAccessCode = async (data) => {
-  const docRef = doc(db, "verification", String(data.phoneNumber));
+  const docRef = doc(db, "verification", String(data.phone));
   const docSnap = await getDoc(docRef)
 
   if (docSnap.exists()) {
@@ -51,7 +51,7 @@ const validateAccessCode = async (data) => {
       throw new Error("Wrong OTP.")
     }
 
-    await deleteDoc(doc(db, "verification", String(data.phoneNumber)));
+    await deleteDoc(doc(db, "verification", String(data.phone)));
   } else {
     throw new Error("No such document!")
   }

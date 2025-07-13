@@ -1,12 +1,23 @@
 import z from "zod";
 
-const userLoginFormSchema = z.object({
+const userSchema = z.object({
+  
+})
+
+const userCreateAccessCodeFormSchema = z.object({
   phone: z.number(),
 })
 
-type UserLoginForm = z.infer<typeof userLoginFormSchema>;
+const userValidateAccessCodeFormSchema = userCreateAccessCodeFormSchema.extend({
+  otp: z.number(),
+})
+
+type UserCreateAccessCodeForm = z.infer<typeof userCreateAccessCodeFormSchema>;
+type UserValidateAccessCodeForm = z.infer<typeof userValidateAccessCodeFormSchema>;
 
 export {
-  userLoginFormSchema,
-  type UserLoginForm
+  userCreateAccessCodeFormSchema,
+  userValidateAccessCodeFormSchema,
+  type UserCreateAccessCodeForm,
+  type UserValidateAccessCodeForm,
 }

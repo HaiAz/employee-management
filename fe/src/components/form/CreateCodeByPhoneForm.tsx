@@ -9,12 +9,11 @@ import { useCreateAccessCodeMutation } from '@/hooks/api/useUserMutation';
 import { NumericFormatInput } from '@/components/NumericFormatInput';
 import { NumberFormatValues } from 'react-number-format';
 import { useUserStore } from '@/stores/user-store';
-import CreateCodeByPhoneForm from '@/components/form/CreateCodeByPhoneForm';
 
-export default function SignIn() {
+export default function CreateCodeByPhoneForm() {
   const mutation = useCreateAccessCodeMutation();
 
-  const { loginStep, setLoginStep } = useUserStore();
+  const { setLoginStep } = useUserStore();
 
   const formik = useFormik({
     initialValues: {
@@ -24,13 +23,38 @@ export default function SignIn() {
     onSubmit: async (values) => {
       const response = await mutation.mutateAsync(values);
 
-      console.log('response ===', response);
+      if (response) {
+        setLoginStep('Validate-Code-By-Phone');
+      }
     },
   });
 
   return (
-    <Box>
-      {loginStep === 'Create-New-Access-Code-By-Phone' && <CreateCodeByPhoneForm />}
-    </Box>
+    <form onSubmit={formik.handleSubmit}>
+      <Flex
+        mx="auto"
+        bg="white"
+        direction="column"
+        gap="5"
+        w={500}
+        p={50}
+        borderWidth="1px"
+        borderColor="secondaryGray.500"
+        rounded="md"
+      >
+        <NumericFormatInput
+          value={formik.values.phone}
+          onValueChange={(data: NumberFormatValues) => formik.setFieldValue('phone', data.floatValue)}
+          onBlur={formik.handleBlur}
+          name="phone"
+          placeholder="0123456789"
+        />
+
+        <Button type="submit" textTransform="uppercase">
+          {/* {t('nav.sign-in')} */}
+          Sign In
+        </Button>
+      </Flex>
+    </form>
   );
 }
