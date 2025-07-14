@@ -1,4 +1,4 @@
-import { Token, UserCreateAccessCodeForm, UserValidateAccessCodeForm } from "@/schemas/user";
+import { Token, UserCreateAccessEmailCodeForm, UserCreateAccessPhoneCodeForm, UserValidateAccessEmailCodeForm, UserValidateAccessPhoneCodeForm } from "@/schemas/user";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useApiAuthClient } from "../useApiAuthClient";
 
@@ -9,7 +9,7 @@ function useCreateAccessCodeMutation() {
   const apiClient = useApiAuthClient();
   
   const mutation = useMutation({
-    mutationFn: async (data: UserCreateAccessCodeForm) => {
+    mutationFn: async (data: UserCreateAccessPhoneCodeForm | UserCreateAccessEmailCodeForm) => {
       return apiClient.post('http://localhost:3001/api/v1/auth/create-new-access-code', data)
     },
     onSuccess: () => {
@@ -25,7 +25,7 @@ function useValidateAccessCodeMutation() {
   const apiClient = useApiAuthClient();
   
   const mutation = useMutation({
-    mutationFn: async (data: UserValidateAccessCodeForm): Promise<Token> => {
+    mutationFn: async (data: UserValidateAccessPhoneCodeForm | UserValidateAccessEmailCodeForm): Promise<Token> => {
       return apiClient.post('http://localhost:3001/api/v1/auth/validate-access-code', data)
     },
     onSuccess: () => {

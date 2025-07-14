@@ -1,0 +1,7 @@
+const TOKEN_STORAGE_KEY = '__t';
+const REFRESH_TOKEN_STORAGE_KEY = '__rt';
+
+export {
+  TOKEN_STORAGE_KEY,
+  REFRESH_TOKEN_STORAGE_KEY,
+};

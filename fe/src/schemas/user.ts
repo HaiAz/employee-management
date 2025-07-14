@@ -5,23 +5,37 @@ const tokenSchema = z.object({
   token: z.string(),
 })
 
-const userCreateAccessCodeFormSchema = z.object({
+const userCreateAccessPhoneCodeFormSchema = z.object({
   phone: z.number(),
 })
 
-const userValidateAccessCodeFormSchema = userCreateAccessCodeFormSchema.extend({
+const userValidateAccessPhoneCodeFormSchema = userCreateAccessPhoneCodeFormSchema.extend({
   otp: z.number(),
 })
 
-type UserCreateAccessCodeForm = z.infer<typeof userCreateAccessCodeFormSchema>;
-type UserValidateAccessCodeForm = z.infer<typeof userValidateAccessCodeFormSchema>;
+const userCreateAccessEmailCodeFormSchema = z.object({
+  email: z.string(),
+})
+
+const userValidateAccessEmailCodeFormSchema = userCreateAccessEmailCodeFormSchema.extend({
+  otp: z.number(),
+})
+
+type UserCreateAccessPhoneCodeForm = z.infer<typeof userCreateAccessPhoneCodeFormSchema>;
+type UserValidateAccessPhoneCodeForm = z.infer<typeof userValidateAccessPhoneCodeFormSchema>;
+type UserCreateAccessEmailCodeForm = z.infer<typeof userCreateAccessEmailCodeFormSchema>;
+type UserValidateAccessEmailCodeForm = z.infer<typeof userValidateAccessEmailCodeFormSchema>
 type Token = z.infer<typeof tokenSchema>;
 
 export {
-  userCreateAccessCodeFormSchema,
-  userValidateAccessCodeFormSchema,
+  userCreateAccessPhoneCodeFormSchema,
+  userValidateAccessPhoneCodeFormSchema,
+  userCreateAccessEmailCodeFormSchema,
+  userValidateAccessEmailCodeFormSchema,
   tokenSchema,
-  type UserCreateAccessCodeForm,
-  type UserValidateAccessCodeForm,
+  type UserCreateAccessPhoneCodeForm,
+  type UserValidateAccessPhoneCodeForm,
+  type UserCreateAccessEmailCodeForm,
+  type UserValidateAccessEmailCodeForm,
   type Token,
 }

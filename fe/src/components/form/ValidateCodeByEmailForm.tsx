@@ -12,7 +12,7 @@ import { useUserStore } from '@/stores/user-store';
 import { MdArrowBack } from 'react-icons/md';
 import { useRouter } from 'next/navigation';
 
-export default function ValidateCodeByPhoneForm({ phone }: { phone: number }) {
+export default function ValidateCodeByEmailForm({ email }: { email: string }) {
   const mutation = useValidateAccessCodeMutation();
   const router = useRouter();
 
@@ -20,7 +20,7 @@ export default function ValidateCodeByPhoneForm({ phone }: { phone: number }) {
 
   const formik = useFormik({
     initialValues: {
-      phone: phone,
+      email: email,
       otp: 0,
     },
     validationSchema: toFormikValidationSchema(userValidateAccessPhoneCodeFormSchema),
@@ -49,7 +49,7 @@ export default function ValidateCodeByPhoneForm({ phone }: { phone: number }) {
             onValueChange={(data: NumberFormatValues) => formik.setFieldValue('otp', data.floatValue)}
             onBlur={formik.handleBlur}
             name="otp"
-            placeholder="123456"
+            placeholder="0123456789"
           />
         </Field.Root>
 
